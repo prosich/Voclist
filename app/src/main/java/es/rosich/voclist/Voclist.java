@@ -12,13 +12,14 @@ public class Voclist {
     Random randomGen = new Random();
     Iterator sacaSiguiente;
     int aprendidas, olvidadas;
-    String nombre;
+    String nombre, lista;
     Context contxt;
 
-    public Voclist(String nombre, InputStream corpus, Context  contexto)
+    public Voclist(String nombre, String lista, Context  contexto)
               throws IOException,ClassNotFoundException {
 
         this.nombre=nombre;
+        this.lista=lista;
         todas=new Vector();
         conseguidas=new Vector();
         preguntar=new Vector();
@@ -28,7 +29,8 @@ public class Voclist {
         contxt=contexto;
 
         // Cargar corpus
-        BufferedReader reader = new BufferedReader(new InputStreamReader(corpus));
+        BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(contxt.getAssets().open(lista+".txt")));
         String str;
         while ((str = reader.readLine()) != null) {
              todas.add(str);
@@ -37,8 +39,9 @@ public class Voclist {
 
         // Cargar notas anteriores
         try {
-            ObjectInputStream fichpuntos=new ObjectInputStream(contxt.openFileInput(nombre + ".pun"));
-            notas= (HashMap<String, Integer>) fichpuntos.readObject();
+            ObjectInputStream fichpuntos=
+                    new ObjectInputStream(contxt.openFileInput(nombre+"-"+lista+".pun"));
+            notas=(HashMap<String, Integer>) fichpuntos.readObject();
         } catch (IOException e) {
             //BUG: Si se modifica corpus, es necesario borrar datos app. ie, perder puntos
             notas = new HashMap<String, Integer>();
@@ -132,7 +135,7 @@ public class Voclist {
 
     public String finmsg() throws IOException {
         ObjectOutputStream fichpuntos = new ObjectOutputStream(
-                 contxt.openFileOutput(nombre+".pun", Context.MODE_PRIVATE));
+                 contxt.openFileOutput(nombre+"-"+lista+".pun", Context.MODE_PRIVATE));
         fichpuntos.writeObject(notas);
 
         String msg="";

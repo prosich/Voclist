@@ -8,12 +8,16 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".pregunta"
-            android:label="@string/app_name" >
+            android:name=".Presenta"
+            android:label="Multilist" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".pregunta"
+            android:label="pregunta" >
         </activity>
     </application>
 

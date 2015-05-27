@@ -28,7 +28,9 @@ public class pregunta extends Activity {
     Button ok, siguiente;
     String palabra;
     boolean empezando=true;
-    String nombre = "amigo";
+    boolean salir=false;
+    String nombre;
+    String lista;
 
     private void terminar() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
@@ -68,9 +70,7 @@ public class pregunta extends Activity {
     }
 
     public void newVL() {
-        try { vl=new Voclist(nombre,
-                             getResources().openRawResource(R.raw.corpus),
-                             getApplicationContext());
+        try { vl=new Voclist(nombre,lista,getApplicationContext());
         } catch (Exception e) { terminar(); }
     }
 
@@ -125,6 +125,10 @@ public class pregunta extends Activity {
             }
         });
 
+        Bundle bundle = getIntent().getExtras();
+        nombre=bundle.getString("nombre");
+        lista=bundle.getString("lista");
+
         newVL();
         presenta("Hola, " + nombre + "!",
                 "Por ahora sabes " + vl.numsabidas() + " palabras.",
@@ -158,6 +162,8 @@ public class pregunta extends Activity {
 
     public void siguiente(View v) {
 
+        if (salir) this.finish();
+
         if (empezando) {
             empezando=false;
             //siguiente.setBackgroundColor(Color.CYAN);
@@ -168,7 +174,13 @@ public class pregunta extends Activity {
         if ((palabra=vl.nuevaPal())!=null)
             entradaSI();
         else { // hemos acabado; preparar otra partida
-            try { presenta("Hemos terminado!", vl.finmsg(), "Aprender mas"); newVL();}
+            try {
+                presenta("Hemos terminado!", vl.finmsg(), "VOLVER");
+                //this.finish();
+                // newVL();
+                salir=true;
+                siguiente.setAlpha((float)1.0);
+            }
             catch (IOException e) {terminar();}
         }
     }
