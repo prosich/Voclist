@@ -4,13 +4,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="es.rosich.voclist.Presenta">
+    tools:context="es.rosich.voclist.Presenta"
+    android:background="#ff6cff72">
 
     <LinearLayout
-        android:background="@android:color/holo_blue_bright"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -19,46 +19,63 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre:"
+                android:text="Tu nombre:   "
                 android:id="@+id/txt_nombre"/>
 
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/intro_nombre"/>
+                    android:id="@+id/intro_nombre"
+                android:background="@android:color/holo_blue_bright"
+                android:inputType="none" />
+
         </TableRow>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textView2" />
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vocabulario:"
+                android:text="Vocabulario:   "
                 android:id="@+id/txt_listas" />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lista_listas" />
+                android:id="@+id/lista_listas"
+                android:background="@android:color/holo_blue_bright" />
 
         </TableRow>
 
-        <TableRow
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="EMPEZAR"
                 android:id="@+id/start_boton"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:background="#fff9ff4c" />
 
-        </TableRow>
+        </LinearLayout>
 
     </LinearLayout>
 

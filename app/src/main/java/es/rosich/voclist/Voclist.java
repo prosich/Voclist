@@ -7,7 +7,8 @@ import android.content.Context;
 
 public class Voclist {
 
-    Vector todas, conseguidas, pendientes, preguntar;
+    Vector todas, conseguidas, pendientes;
+    Vector preguntar=new Vector();
     HashMap<String, Integer> notas;
     Random randomGen = new Random();
     Iterator sacaSiguiente;
@@ -22,7 +23,6 @@ public class Voclist {
         this.lista=lista;
         todas=new Vector();
         conseguidas=new Vector();
-        preguntar=new Vector();
         pendientes=new Vector();
         aprendidas=0;
         olvidadas=0;
@@ -105,7 +105,7 @@ public class Voclist {
         if (sacaSiguiente.hasNext()) {
             return (String) sacaSiguiente.next();
         }
-        return(null);
+        else return(null);
     }
 
     public String pronuncia(String pal) {
@@ -117,18 +117,22 @@ public class Voclist {
     }
 
     private Iterator seleccion() {
-        for (int i=0; i<Math.min(8,pendientes.size()); i++) {
-            preguntar.add(pendientes.elementAt(i));
-            //Log.i("Añadida pendiente: ",(String)preguntar.lastElement());
-        }
-        for (int i=0; i<Math.min(2,conseguidas.size()); i++) {
-            String otra;
-            // al azar entre las sabidas, pero sin repetir
-            do {
-                otra=(String)conseguidas.elementAt(randomGen.nextInt(conseguidas.size()));
-            } while (preguntar.contains(otra));
-            preguntar.add(otra);
-            Log.i("Añadida ya sabida: ",(String)preguntar.lastElement());
+
+        if (pendientes.size()!=0) {
+
+            for (int i = 0; i < Math.min(8, pendientes.size()); i++) {
+                preguntar.add(pendientes.elementAt(i));
+                //Log.i("Añadida pendiente: ",(String)preguntar.lastElement());
+            }
+            for (int i = 0; i < Math.min(2, conseguidas.size()); i++) {
+                String otra;
+                // al azar entre las sabidas, pero sin repetir
+                do {
+                    otra = (String) conseguidas.elementAt(randomGen.nextInt(conseguidas.size()));
+                } while (preguntar.contains(otra));
+                preguntar.add(otra);
+                Log.i("Añadida ya sabida: ", (String) preguntar.lastElement());
+            }
         }
         return preguntar.iterator();
     }
@@ -143,7 +147,18 @@ public class Voclist {
         if (aprendidas>1)  msg+="Has aprendido "+aprendidas+" palabras";
         if (olvidadas==1)  msg+="Has olvidado " +olvidadas+" palabra";
         if (olvidadas>1)   msg+="Has olvidado " +olvidadas+" palabras";
-        msg+="\nSabes "+numsabidas()+" palabras";
+        if (numsabidas()==todas.size())
+            msg+="\nYa te sabes todas las palabras ("+numsabidas()+")";
+        else
+            msg+="\nSabes "+numsabidas()+" palabras";
         return msg;
+    }
+
+    public int pcPartida() {
+        return 100*(aprendidas)/preguntar.size();
+    }
+
+    public int pcGlobal() {
+        return (100*(conseguidas.size()+aprendidas-olvidadas))/todas.size();
     }
 }

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class Presenta extends ActionBarActivity {
 
     public void addListenerOnButton() {
         Button b=(Button)findViewById(R.id.start_boton);
-        b.setBackgroundColor(Color.YELLOW);
 
         final Spinner spinner1 = (Spinner) findViewById(R.id.lista_listas);
         ArrayList lista = new ArrayList<String>();

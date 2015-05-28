@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -26,6 +27,7 @@ public class pregunta extends Activity {
     TextView respuesta, info;
     ImageButton repite;
     Button ok, siguiente;
+    ProgressBar pcbar;
     String palabra;
     boolean empezando=true;
     boolean salir=false;
@@ -88,6 +90,9 @@ public class pregunta extends Activity {
         repite    = (ImageButton) findViewById(R.id.botonRepite);
         ok        =      (Button) findViewById(R.id.botonOK);
         siguiente =      (Button) findViewById(R.id.botonSiguiente);
+        pcbar     = (ProgressBar) findViewById(R.id.pcPartida);
+
+        //pcbar.setProgress(0);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         ok.setBackgroundColor(Color.GREEN);
@@ -130,6 +135,7 @@ public class pregunta extends Activity {
         lista=bundle.getString("lista");
 
         newVL();
+        pcbar.setProgress(vl.pcGlobal());
         presenta("Hola, " + nombre + "!",
                 "Por ahora sabes " + vl.numsabidas() + " palabras.",
                 "EMPEZAR");
@@ -152,6 +158,7 @@ public class pregunta extends Activity {
         if (ok.isEnabled()) {
             // Calificar palabra introducida
             info.setText(vl.califica(palabra, respuesta.getText().toString()));
+            pcbar.setProgress(vl.pcPartida());
             entradaNO();
         }else{
             // Palabra ya calificada. Pasar a otra, salvo empezando
@@ -167,6 +174,7 @@ public class pregunta extends Activity {
         if (empezando) {
             empezando=false;
             //siguiente.setBackgroundColor(Color.CYAN);
+            pcbar.setProgress(0);
             siguiente.setAlpha((float) 0.0);
             siguiente.setEnabled(false);
         }
