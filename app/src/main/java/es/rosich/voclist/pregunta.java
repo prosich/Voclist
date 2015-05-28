@@ -44,6 +44,8 @@ public class pregunta extends Activity {
         ok.setAlpha((float) 0.0);
         repite.setEnabled(false);
         repite.setAlpha((float) 0.0);
+        //respuesta.setVisibility(View.INVISIBLE);
+        respuesta.setAlpha((float)0.0);
     }
 
     public void entradaSI() {
@@ -55,7 +57,9 @@ public class pregunta extends Activity {
         repite.setAlpha((float) 1.0);
         repite.setBackgroundColor(Color.GREEN);
         respuesta.setText("");
+        respuesta.setAlpha((float)1.0);
         respuesta.setEnabled(true);
+        //respuesta.setVisibility(View.VISIBLE);
         respuesta.requestFocus();
         info.setText("Escucha y escribe");
         tts.speak(vl.pronuncia(palabra), TextToSpeech.QUEUE_FLUSH, null);
@@ -64,8 +68,8 @@ public class pregunta extends Activity {
     public void presenta(String saludo, String informe, String boton) {
         empezando = true;
         entradaNO();
-        respuesta.setText(saludo);
-        info.setText(informe);
+        //respuesta.setText(saludo);
+        info.setText(saludo+"\n"+informe);
         siguiente.setText(boton);
         siguiente.setEnabled(true);
         siguiente.setBackgroundColor(Color.YELLOW);
