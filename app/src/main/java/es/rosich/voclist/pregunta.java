@@ -47,7 +47,7 @@ public class pregunta extends Activity {
         repite.setAlpha((float) 0.0);
         //respuesta.setVisibility(View.INVISIBLE);
         respuesta.setEnabled(true);
-        //respuesta.setAlpha((float)0.0);
+        respuesta.setAlpha((float)0.0);
     }
 
     public void entradaSI() {
