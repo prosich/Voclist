@@ -22,13 +22,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <ImageButton
+                <!-- <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/botonRepite"
-                    android:src="@android:drawable/ic_menu_rotate"
-                    android:onClick="repite"
-                    android:clickable="true" />
+                    android:layout_height="wrap_content"
+                    android:text="OK"
+                    android:id="@+id/botonOK"
+                    android:enabled="true"
+                    android:onClick="califica"
+                    android:maxLines="1" />
+                    -->
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -37,14 +39,13 @@
                     android:id="@+id/txtRespuesta"
                     android:layout_weight="1" />
 
-                <Button
+                <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OK"
-                    android:id="@+id/botonOK"
-                    android:enabled="true"
-                    android:onClick="califica"
-                    android:maxLines="1" />
+                    android:layout_height="fill_parent"
+                    android:id="@+id/botonRepite"
+                    android:src="@android:drawable/ic_menu_rotate"
+                    android:onClick="repite"
+                    android:clickable="true" />
 
             </LinearLayout>
         </LinearLayout>

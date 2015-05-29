@@ -20,14 +20,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tu nombre:   "
-                android:id="@+id/txt_nombre"/>
+                android:id="@+id/txt_nombre"
+                android:textSize="@dimen/normaltext"
+                android:textIsSelectable="false" />
 
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/intro_nombre"
                 android:background="@android:color/holo_blue_bright"
-                android:inputType="none" />
+                android:lines="1"
+                android:textSize="@dimen/normaltext"
+                android:maxLines="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/textView3"
+                android:singleLine="true"
+                android:ellipsize="end" />
 
         </TableRow>
 
@@ -46,7 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vocabulario:   "
-                android:id="@+id/txt_listas" />
+                android:id="@+id/txt_listas"
+                android:textSize="@dimen/normaltext" />
 
             <Spinner
                 android:layout_width="wrap_content"

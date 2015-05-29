@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,6 +20,9 @@ import java.util.ArrayList;
 
 public class Presenta extends ActionBarActivity {
 
+    EditText txt_nombre;
+    Spinner spinner1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +30,20 @@ public class Presenta extends ActionBarActivity {
         addListenerOnButton();
     }
 
+    public void empieza() {
+        String nombre=txt_nombre.getText().toString();
+        String lista=String.valueOf(spinner1.getSelectedItem());
+        Intent i = new Intent(getBaseContext(), pregunta.class);
+        i.putExtra("nombre",nombre);
+        i.putExtra("lista",lista);
+        startActivity(i);
+    }
+
+
     public void addListenerOnButton() {
         Button b=(Button)findViewById(R.id.start_boton);
 
-        final Spinner spinner1 = (Spinner) findViewById(R.id.lista_listas);
+        spinner1=(Spinner) findViewById(R.id.lista_listas);
         ArrayList lista = new ArrayList<String>();
         lista.add("ortografia");
         lista.add("ingles");
@@ -35,16 +51,23 @@ public class Presenta extends ActionBarActivity {
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adaptador);
 
+        txt_nombre=(EditText)findViewById(R.id.intro_nombre);
+        txt_nombre.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //empieza();
+                } else if ((actionId == 0) && event.getAction() == KeyEvent.ACTION_UP) {
+                    //empieza();
+                }
+                return (true);
+            }
+        });
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                TextView txt_nombre=(TextView)findViewById(R.id.intro_nombre);
-                String nombre=txt_nombre.getText().toString();
-                String lista=String.valueOf(spinner1.getSelectedItem());
-                Intent i = new Intent(getBaseContext(), pregunta.class);
-                i.putExtra("nombre",nombre);
-                i.putExtra("lista",lista);
-                startActivity(i);
+                empieza();
             }
         });
     };

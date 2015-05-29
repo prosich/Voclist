@@ -65,11 +65,51 @@ public class Voclist {
         sacaSiguiente=seleccion();
     }
 
+    private String trucoacento (String pal) {
+        // Parche específico para tablet de Héctor
+        // En teclado físico sin acentos, admitimos `e como è y ~u como ü
+        char l,v;
+        int i=0;
+        String resultado="";
+        while (i<pal.length()){
+            l = pal.charAt(i);
+            if (l=='`') {
+                i++;
+                switch (v=pal.charAt(i)) {
+                    case 'a': l='á'; break;
+                    case 'e': l='é'; break;
+                    case 'i': l='í'; break;
+                    case 'o': l='ó'; break;
+                    case 'u': l='ú'; break;
+                     default: l=v;
+                }
+            }
+            if (l=='~') {
+                i++;
+                switch (v=pal.charAt(i)) {
+                    case 'a': l='ä'; break;
+                    case 'e': l='ë'; break;
+                    case 'i': l='ï'; break;
+                    case 'o': l='ö'; break;
+                    case 'u': l='ü'; break;
+                     default: l=v;
+                }
+            }
+            resultado=resultado+l;
+            i++;
+        }
+        Log.i("Trucoacentos",pal+"->"+resultado);
+        return resultado;
+    }
+
     public int numsabidas() {
         return(conseguidas.size()+aprendidas);
     }
 
-    public String califica(String palabra, String respuesta) {
+    public String califica(String palabra, String respuesta0) {
+
+        Log.i("Truco",palabra);
+        String respuesta=trucoacento(respuesta0);
 
         int increm;
 

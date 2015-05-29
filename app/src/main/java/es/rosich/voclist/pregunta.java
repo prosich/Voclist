@@ -40,24 +40,27 @@ public class pregunta extends Activity {
     }
 
     public void entradaNO() {
-        ok.setEnabled(false);
-        ok.setAlpha((float) 0.0);
+        Log.i("ENTRADA","NO");
+        //ok.setEnabled(false);
+        //ok.setAlpha((float) 0.0);
         repite.setEnabled(false);
         repite.setAlpha((float) 0.0);
         //respuesta.setVisibility(View.INVISIBLE);
-        respuesta.setAlpha((float)0.0);
+        respuesta.setEnabled(true);
+        //respuesta.setAlpha((float)0.0);
     }
 
     public void entradaSI() {
+        Log.i("ENTRADA","SI");
         siguiente.setText("Siguiente");
         siguiente.setEnabled(false);
-        ok.setEnabled(true);
-        ok.setAlpha((float) 1.0);
+        //ok.setEnabled(false);
+        //ok.setAlpha((float) 0.0);
         repite.setEnabled(true);
         repite.setAlpha((float) 1.0);
         repite.setBackgroundColor(Color.GREEN);
         respuesta.setText("");
-        respuesta.setAlpha((float)1.0);
+        respuesta.setAlpha((float) 1.0);
         respuesta.setEnabled(true);
         //respuesta.setVisibility(View.VISIBLE);
         respuesta.requestFocus();
@@ -92,14 +95,12 @@ public class pregunta extends Activity {
         respuesta =    (TextView) findViewById(R.id.txtRespuesta);
         info      =    (TextView) findViewById(R.id.txtInfo);
         repite    = (ImageButton) findViewById(R.id.botonRepite);
-        ok        =      (Button) findViewById(R.id.botonOK);
+        //ok        =      (Button) findViewById(R.id.botonOK);
         siguiente =      (Button) findViewById(R.id.botonSiguiente);
         pcbar     = (ProgressBar) findViewById(R.id.pcPartida);
 
-        //pcbar.setProgress(0);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        ok.setBackgroundColor(Color.GREEN);
+        //ok.setBackgroundColor(Color.GREEN);
 
         tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -159,7 +160,8 @@ public class pregunta extends Activity {
     }
 
     public void califica(View v) {
-        if (ok.isEnabled()) {
+        Log.i("CALIFICANDO","ando");
+        if (repite.isEnabled()) {
             // Calificar palabra introducida
             info.setText(vl.califica(palabra, respuesta.getText().toString()));
             pcbar.setProgress(vl.pcPartida());
@@ -187,7 +189,7 @@ public class pregunta extends Activity {
             entradaSI();
         else { // hemos acabado; preparar otra partida
             try {
-                presenta("Hemos terminado!", vl.finmsg(), "VOLVER");
+                presenta("Guardado", vl.finmsg(), "VOLVER");
                 //this.finish();
                 // newVL();
                 salir=true;
