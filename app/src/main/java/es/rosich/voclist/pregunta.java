@@ -46,7 +46,7 @@ public class pregunta extends Activity {
         repite.setEnabled(false);
         repite.setAlpha((float) 0.0);
         //respuesta.setVisibility(View.INVISIBLE);
-        respuesta.setEnabled(true);
+        respuesta.setEnabled(true); //innecesario
         respuesta.setAlpha((float)0.0);
     }
 
@@ -61,7 +61,7 @@ public class pregunta extends Activity {
         repite.setBackgroundColor(Color.GREEN);
         respuesta.setText("");
         respuesta.setAlpha((float) 1.0);
-        respuesta.setEnabled(true);
+        respuesta.setEnabled(true); //innecesario
         //respuesta.setVisibility(View.VISIBLE);
         respuesta.requestFocus();
         info.setText("Escucha y escribe");

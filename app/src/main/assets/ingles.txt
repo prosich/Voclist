@@ -3,14 +3,14 @@ table,mesa
 dog,perro
 hello,hola
 chair,silla
-telephone,teléfono
+telephone,telefono
 salt,sal
 sugar,azucar
 bottle,botella
 box,caja
 paper,papel
 notebook,libreta
-mouse,ratón
+mouse,raton
 keyboard,teclado
 friend,amigo
 plant,planta

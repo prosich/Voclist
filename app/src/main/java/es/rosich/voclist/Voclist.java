@@ -12,7 +12,7 @@ public class Voclist {
     HashMap<String, Integer> notas;
     Random randomGen = new Random();
     Iterator sacaSiguiente;
-    int aprendidas, olvidadas;
+    int aprendidas, olvidadas,preguntadas=0;
     String nombre, lista;
     Context contxt;
 
@@ -143,6 +143,7 @@ public class Voclist {
 
     public String nuevaPal() {
         if (sacaSiguiente.hasNext()) {
+            preguntadas++;
             return (String) sacaSiguiente.next();
         }
         else return(null);
@@ -195,7 +196,7 @@ public class Voclist {
     }
 
     public int pcPartida() {
-        return 100*(aprendidas)/preguntar.size();
+        return 100*(preguntadas)/preguntar.size();
     }
 
     public int pcGlobal() {
