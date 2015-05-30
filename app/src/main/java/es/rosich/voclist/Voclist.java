@@ -195,11 +195,10 @@ public class Voclist {
         return msg;
     }
 
-    public int pcPartida() {
-        return 100*(preguntadas)/preguntar.size();
-    }
+    public String fPartida() { return " "+preguntadas+"/"+preguntar.size()+" "; }
+    public int pcPartida() { return 100*(preguntadas)/preguntar.size();}
+    public String f2Partida() { return " "+conseguidas.size()+"+"+aprendidas+"-"+olvidadas+" ";}
 
-    public int pcGlobal() {
-        return (100*(conseguidas.size()+aprendidas-olvidadas))/todas.size();
-    }
+    public String fGlobal() { return " "+(conseguidas.size()+aprendidas-olvidadas)+"/"+todas.size()+" ";}
+    public int pcGlobal() { return (100*(conseguidas.size()+aprendidas-olvidadas))/todas.size();}
 }

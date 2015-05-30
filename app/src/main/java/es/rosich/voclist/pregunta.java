@@ -24,7 +24,7 @@ public class pregunta extends Activity {
 
     private Voclist vl;
     TextToSpeech tts;
-    TextView respuesta, info;
+    TextView respuesta, info, ftxt1, ftxt2;
     ImageButton repite;
     Button ok, siguiente;
     ProgressBar pcbar;
@@ -98,7 +98,8 @@ public class pregunta extends Activity {
         //ok        =      (Button) findViewById(R.id.botonOK);
         siguiente =      (Button) findViewById(R.id.botonSiguiente);
         pcbar     = (ProgressBar) findViewById(R.id.pcPartida);
-
+        ftxt1     =    (TextView) findViewById(R.id.ftxt1);
+        ftxt2     =    (TextView) findViewById(R.id.ftxt2);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         //ok.setBackgroundColor(Color.GREEN);
 
@@ -141,6 +142,7 @@ public class pregunta extends Activity {
 
         newVL();
         pcbar.setProgress(vl.pcGlobal());
+        ftxt1.setText(vl.fGlobal());
         presenta("Hola, " + nombre + "!",
                 "Por ahora sabes " + vl.numsabidas() + " palabras.",
                 "EMPEZAR");
@@ -163,8 +165,10 @@ public class pregunta extends Activity {
         Log.i("CALIFICANDO","ando");
         if (repite.isEnabled()) {
             // Calificar palabra introducida
-            info.setText(vl.califica(palabra, respuesta.getText().toString()));
+            info.setText(vl.califica(palabra, respuesta.getText().toString())+"\nPulsa ENTER");
             pcbar.setProgress(vl.pcPartida());
+            ftxt1.setText(vl.f2Partida() + " " + vl.fPartida());
+            //ftxt2.setText("hola"+vl.f2Partida());
             entradaNO();
         }else{
             // Palabra ya calificada. Pasar a otra, salvo empezando
@@ -181,6 +185,8 @@ public class pregunta extends Activity {
             empezando=false;
             //siguiente.setBackgroundColor(Color.CYAN);
             pcbar.setProgress(0);
+            ftxt1.setText(vl.f2Partida()+" "+vl.fPartida());
+            //ftxt1.setText(vl.fPartida());
             siguiente.setAlpha((float) 0.0);
             siguiente.setEnabled(false);
         }
