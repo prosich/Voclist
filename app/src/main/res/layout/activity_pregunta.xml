@@ -7,7 +7,7 @@
 
 
     <LinearLayout
-        android:background="@android:color/holo_orange_light"
+        android:background="#ffffd65c"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -91,11 +91,12 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Siguiente"
+                android:text=""
                 android:id="@+id/botonSiguiente"
                 android:onClick="siguiente"
                 android:enabled="false"
-                android:background="#fffcff55" />
+                android:background="#fffcff55"
+                style="@style/Base.TextAppearance.AppCompat.Button" />
 
         </LinearLayout>
 

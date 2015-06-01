@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ public class pregunta extends Activity {
     TextToSpeech tts;
     TextView respuesta, info, ftxt1, ftxt2;
     ImageButton repite;
-    //Button ok;
     Button siguiente;
     ProgressBar pcbar;
     String palabra;
@@ -41,29 +39,22 @@ public class pregunta extends Activity {
     }
 
     public void entradaNO() {
-        //Log.i("ENTRADA", "NO");
-        //ok.setEnabled(false);
-        //ok.setAlpha((float) 0.0);
         repite.setEnabled(false);
-        repite.setVisibility(View.INVISIBLE);
-        //respuesta.setEnabled(true); //innecesario
-        respuesta.setAlpha((float)0.0);
-        //respuesta.setVisibility(View.INVISIBLE);
+        repite.setBackgroundColor(Color.LTGRAY);
+        siguiente.setEnabled(true);
+        siguiente.setVisibility(View.VISIBLE);
+        respuesta.setEnabled(false);
     }
 
     public void entradaSI() {
-        //Log.i("ENTRADA","SI");
-        siguiente.setText("Siguiente");
-        siguiente.setEnabled(false);
-        //ok.setEnabled(false);
-        //ok.setAlpha((float) 0.0);
         repite.setEnabled(true);
-        repite.setVisibility(View.VISIBLE);
-        //repite.setBackgroundColor(Color.GREEN);
+        repite.setBackgroundColor(Color.GREEN);
+        siguiente.setText("Otra palabra");
+        siguiente.setEnabled(false);
+        siguiente.setVisibility(View.INVISIBLE);
         respuesta.setText("");
-        respuesta.setAlpha((float) 1.0);
-        //respuesta.setVisibility(View.VISIBLE);
-        //respuesta.setEnabled(true); //innecesario
+        respuesta.setEnabled(true);
+        respuesta.setVisibility(View.VISIBLE);
         respuesta.requestFocus();
         info.setText("Escucha y escribe");
         tts.speak(vl.pronuncia(palabra), TextToSpeech.QUEUE_FLUSH, null);
@@ -72,11 +63,9 @@ public class pregunta extends Activity {
     public void presenta(String saludo, String informe, String boton) {
         empezando = true;
         entradaNO();
-        //respuesta.setText(saludo);
         info.setText(saludo+"\n"+informe);
         siguiente.setText(boton);
         siguiente.setEnabled(true);
-        //siguiente.setBackgroundColor(Color.YELLOW);
     }
 
     public void newVL() {
@@ -96,13 +85,11 @@ public class pregunta extends Activity {
         respuesta =    (TextView) findViewById(R.id.txtRespuesta);
         info      =    (TextView) findViewById(R.id.txtInfo);
         repite    = (ImageButton) findViewById(R.id.botonRepite);
-        //ok        =      (Button) findViewById(R.id.botonOK);
         siguiente =      (Button) findViewById(R.id.botonSiguiente);
         pcbar     = (ProgressBar) findViewById(R.id.pcPartida);
         ftxt1     =    (TextView) findViewById(R.id.ftxt1);
         ftxt2     =    (TextView) findViewById(R.id.ftxt2);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        //ok.setBackgroundColor(Color.GREEN);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -146,7 +133,7 @@ public class pregunta extends Activity {
         ftxt1.setText(vl.fGlobal());
         presenta("Hola, " + nombre + "!",
                 "Por ahora sabes " + vl.numsabidas() + " palabras.",
-                "EMPEZAR");
+                "Vale, empecemos");
     }
 
     @Override
@@ -166,7 +153,7 @@ public class pregunta extends Activity {
         Log.i("CALIFICANDO","ando");
         if (repite.isEnabled()) {
             // Calificar palabra introducida
-            info.setText(vl.califica(palabra, respuesta.getText().toString())+"\nPulsa ENTER");
+            info.setText(vl.califica(palabra, respuesta.getText().toString()));
             pcbar.setProgress(vl.pcPartida());
             ftxt1.setText(vl.f2Partida() + " " + vl.fPartida());
             //ftxt2.setText("hola"+vl.f2Partida());
@@ -184,12 +171,9 @@ public class pregunta extends Activity {
 
         if (empezando) {
             empezando=false;
-            //siguiente.setBackgroundColor(Color.CYAN);
             pcbar.setProgress(0);
             ftxt1.setText(vl.f2Partida()+" "+vl.fPartida());
-            //ftxt1.setText(vl.fPartida());
-            siguiente.setAlpha((float) 0.0);
-            //siguiente.setVisibility(View.INVISIBLE);
+            siguiente.setVisibility(View.INVISIBLE);
             siguiente.setEnabled(false);
         }
 
@@ -201,7 +185,7 @@ public class pregunta extends Activity {
                 //this.finish();
                 // newVL();
                 salir=true;
-                siguiente.setAlpha((float)1.0);
+                //siguiente.setAlpha((float)1.0);
                 //siguiente.setVisibility(View.VISIBLE);
             }
             catch (IOException e) {terminar();}

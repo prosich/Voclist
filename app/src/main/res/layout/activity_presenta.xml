@@ -30,7 +30,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/intro_nombre"
-                android:background="@android:color/holo_blue_bright"
+                android:background="#ff6ff6ff"
                 android:textSize="@dimen/normaltext"
                 android:focusable="true"
                 android:ellipsize="end"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lista_listas"
-                android:background="@android:color/holo_blue_bright" />
+                android:background="#ff6ff6ff" />
 
         </TableRow>
 
@@ -82,12 +82,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EMPEZAR"
+                android:text="OK"
                 android:id="@+id/start_boton"
                 android:layout_centerHorizontal="true"
                 android:background="#fff9ff4c" />
