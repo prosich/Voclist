@@ -37,7 +37,8 @@
                     android:inputType="text"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtRespuesta"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textSize="@dimen/normaltext" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
                 android:id="@+id/txtInfo"
                 android:minLines="3"
                 android:gravity="center_horizontal"
-                android:maxLines="3" />
+                android:maxLines="3"
+                android:textSize="@dimen/normaltext" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -96,7 +98,8 @@
                 android:onClick="siguiente"
                 android:enabled="false"
                 android:background="#fffcff55"
-                style="@style/Base.TextAppearance.AppCompat.Button" />
+                style="@style/Base.TextAppearance.AppCompat.Button"
+                android:textSize="@dimen/normaltext" />
 
         </LinearLayout>
 

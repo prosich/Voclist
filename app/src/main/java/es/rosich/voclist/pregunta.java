@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class pregunta extends Activity {
         repite.setBackgroundColor(Color.LTGRAY);
         siguiente.setEnabled(true);
         siguiente.setVisibility(View.VISIBLE);
-        respuesta.setEnabled(false);
+        //respuesta.setEnabled(false);
     }
 
     public void entradaSI() {
@@ -89,7 +90,7 @@ public class pregunta extends Activity {
         pcbar     = (ProgressBar) findViewById(R.id.pcPartida);
         ftxt1     =    (TextView) findViewById(R.id.ftxt1);
         ftxt2     =    (TextView) findViewById(R.id.ftxt2);
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
