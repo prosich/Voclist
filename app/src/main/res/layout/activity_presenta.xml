@@ -22,16 +22,19 @@
                 android:text="Tu nombre:   "
                 android:id="@+id/txt_nombre"
                 android:textSize="@dimen/normaltext"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                android:singleLine="false"
+                android:nestedScrollingEnabled="false" />
 
             <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/intro_nombre"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/intro_nombre"
                 android:background="@android:color/holo_blue_bright"
-                android:lines="1"
                 android:textSize="@dimen/normaltext"
-                android:maxLines="1" />
+                android:focusable="true"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
             <TextView
                 android:layout_width="wrap_content"

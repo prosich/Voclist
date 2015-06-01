@@ -26,7 +26,8 @@ public class pregunta extends Activity {
     TextToSpeech tts;
     TextView respuesta, info, ftxt1, ftxt2;
     ImageButton repite;
-    Button ok, siguiente;
+    //Button ok;
+    Button siguiente;
     ProgressBar pcbar;
     String palabra;
     boolean empezando=true;
@@ -40,29 +41,29 @@ public class pregunta extends Activity {
     }
 
     public void entradaNO() {
-        Log.i("ENTRADA","NO");
+        //Log.i("ENTRADA", "NO");
         //ok.setEnabled(false);
         //ok.setAlpha((float) 0.0);
         repite.setEnabled(false);
-        repite.setAlpha((float) 0.0);
-        //respuesta.setVisibility(View.INVISIBLE);
-        respuesta.setEnabled(true); //innecesario
+        repite.setVisibility(View.INVISIBLE);
+        //respuesta.setEnabled(true); //innecesario
         respuesta.setAlpha((float)0.0);
+        //respuesta.setVisibility(View.INVISIBLE);
     }
 
     public void entradaSI() {
-        Log.i("ENTRADA","SI");
+        //Log.i("ENTRADA","SI");
         siguiente.setText("Siguiente");
         siguiente.setEnabled(false);
         //ok.setEnabled(false);
         //ok.setAlpha((float) 0.0);
         repite.setEnabled(true);
-        repite.setAlpha((float) 1.0);
-        repite.setBackgroundColor(Color.GREEN);
+        repite.setVisibility(View.VISIBLE);
+        //repite.setBackgroundColor(Color.GREEN);
         respuesta.setText("");
         respuesta.setAlpha((float) 1.0);
-        respuesta.setEnabled(true); //innecesario
         //respuesta.setVisibility(View.VISIBLE);
+        //respuesta.setEnabled(true); //innecesario
         respuesta.requestFocus();
         info.setText("Escucha y escribe");
         tts.speak(vl.pronuncia(palabra), TextToSpeech.QUEUE_FLUSH, null);
@@ -75,7 +76,7 @@ public class pregunta extends Activity {
         info.setText(saludo+"\n"+informe);
         siguiente.setText(boton);
         siguiente.setEnabled(true);
-        siguiente.setBackgroundColor(Color.YELLOW);
+        //siguiente.setBackgroundColor(Color.YELLOW);
     }
 
     public void newVL() {
@@ -188,6 +189,7 @@ public class pregunta extends Activity {
             ftxt1.setText(vl.f2Partida()+" "+vl.fPartida());
             //ftxt1.setText(vl.fPartida());
             siguiente.setAlpha((float) 0.0);
+            //siguiente.setVisibility(View.INVISIBLE);
             siguiente.setEnabled(false);
         }
 
@@ -200,6 +202,7 @@ public class pregunta extends Activity {
                 // newVL();
                 salir=true;
                 siguiente.setAlpha((float)1.0);
+                //siguiente.setVisibility(View.VISIBLE);
             }
             catch (IOException e) {terminar();}
         }
