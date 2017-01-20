@@ -13,8 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.*;
 import android.util.*;
-import com.google.firebase.auth.*;
 
+import com.google.firebase.auth.*;
+import com.google.android.gms.auth.api.signin.*;
+import com.google.android.gms.common.api.*;
 import static com.google.android.gms.internal.zzs.TAG;
 
 public class Presenta extends Activity {
@@ -24,6 +26,7 @@ public class Presenta extends Activity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,17 @@ public class Presenta extends Activity {
                 // ...
             }
         };
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        /*private void signIn() {
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        }
+        */
+
     }
 
     @Override
@@ -77,10 +91,10 @@ public class Presenta extends Activity {
         Button b=(Button)findViewById(R.id.start_boton);
 
         spinner1=(Spinner) findViewById(R.id.lista_listas);
-        ArrayList lista = new ArrayList<>();
+        ArrayList<String> lista = new ArrayList<>();
         lista.add("ortografia");
         lista.add("ingles");
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lista);
+        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lista);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adaptador);
 
@@ -102,7 +116,6 @@ public class Presenta extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) return true;
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 }
