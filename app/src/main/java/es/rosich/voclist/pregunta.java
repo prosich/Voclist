@@ -1,6 +1,7 @@
 package es.rosich.voclist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.speech.tts.TextToSpeech;
@@ -27,6 +28,7 @@ public class pregunta extends Activity {
     TextView respuesta, info, ftxt1, ftxt2;
     ImageButton repite;
     Button siguiente;
+    Button nosoy;
     ProgressBar pcbar;
     String palabra;
     boolean empezando=true;
@@ -67,6 +69,7 @@ public class pregunta extends Activity {
         info.setText(saludo+"\n"+informe);
         siguiente.setText(boton);
         siguiente.setEnabled(true);
+        nosoy.setText("No soy "+nombre);
     }
 
     public void newVL() {
@@ -87,6 +90,7 @@ public class pregunta extends Activity {
         info      =    (TextView) findViewById(R.id.txtInfo);
         repite    = (ImageButton) findViewById(R.id.botonRepite);
         siguiente =      (Button) findViewById(R.id.botonSiguiente);
+        nosoy     =      (Button) findViewById(R.id.botonNosoy);
         pcbar     = (ProgressBar) findViewById(R.id.pcPartida);
         ftxt1     =    (TextView) findViewById(R.id.ftxt1);
         ftxt2     =    (TextView) findViewById(R.id.ftxt2);
@@ -166,6 +170,12 @@ public class pregunta extends Activity {
         }
     }
 
+    public void volver() {
+        Intent i = new Intent(getBaseContext(), Glogin.class);
+        i.putExtra("nombreusu","");
+        startActivity(i);
+    }
+
     public void siguiente(View v) {
 
         if (salir) this.finish();
@@ -176,6 +186,8 @@ public class pregunta extends Activity {
             ftxt1.setText(vl.f2Partida()+" "+vl.fPartida());
             siguiente.setVisibility(View.INVISIBLE);
             siguiente.setEnabled(false);
+            nosoy.setVisibility(View.INVISIBLE);
+            nosoy.setEnabled(false);
         }
 
         if ((palabra=vl.nuevaPal())!=null)

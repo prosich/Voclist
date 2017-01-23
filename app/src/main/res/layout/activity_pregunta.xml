@@ -47,7 +47,8 @@
                     android:src="@android:drawable/ic_menu_rotate"
                     android:onClick="repite"
                     android:clickable="true"
-                    android:background="#ff44ff4e" />
+                    android:background="#ff44ff4e"
+                    android:layout_weight="0.15" />
 
             </LinearLayout>
         </LinearLayout>
@@ -92,7 +93,7 @@
 
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:text=""
                 android:id="@+id/botonSiguiente"
                 android:onClick="siguiente"
@@ -100,6 +101,22 @@
                 android:background="#fffcff55"
                 style="@style/Base.TextAppearance.AppCompat.Button"
                 android:textSize="@dimen/normaltext" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text=""
+                android:id="@+id/botonNosoy"
+                android:onClick="volver"
+                android:enabled="true"
+                android:background="#fffcff55"
+                style="@style/Base.TextAppearance.AppCompat.Button"
+                android:textSize="30dp" />
 
         </LinearLayout>
 
