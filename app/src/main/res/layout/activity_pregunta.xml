@@ -116,7 +116,7 @@
                 android:enabled="true"
                 android:background="#fffcff55"
                 style="@style/Base.TextAppearance.AppCompat.Button"
-                android:textSize="30dp" />
+                android:textSize="@dimen/normaltext" />
 
         </LinearLayout>
 

@@ -12,20 +12,12 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Glogin"
-            android:label="Voclist" >
+            android:name=".pregunta"
+            android:label="pregunta" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".pregunta"
-            android:label="pregunta" >
-        </activity>
-        <activity
-            android:name=".Presenta"
-            android:label="Presenta" >
         </activity>
     </application>
 

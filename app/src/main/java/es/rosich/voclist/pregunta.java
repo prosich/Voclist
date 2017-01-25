@@ -21,7 +21,33 @@ import android.util.Log;
 import java.util.Locale;
 import java.io.IOException;
 
-public class pregunta extends Activity {
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+public class pregunta extends BaseActivity implements
+        GoogleApiClient.OnConnectionFailedListener,
+        View.OnClickListener {
 
     private Voclist vl;
     TextToSpeech tts;
@@ -34,7 +60,102 @@ public class pregunta extends Activity {
     boolean empezando=true;
     boolean salir=false;
     String nombre;
-    String lista;
+    String lista="ortografia";
+
+    private static final String TAG = "GoogleActivity";
+    private static final int RC_SIGN_IN = 9001;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private GoogleApiClient mGoogleApiClient;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d(TAG, "onActivityResult");
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                Log.d(TAG, "LOGEADO");
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            } else {
+                Log.d(TAG, "NOOOOO LOGEADO");
+                //signIn();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        showProgressDialog();
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(pregunta.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        hideProgressDialog();
+                    }
+                });
+    }
+
+    private void signIn() {
+        Log.d(TAG, "SIGNIN");
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    public void volver(View v) {
+        Log.d(TAG, "VOLVER");
+        signOut();
+        signIn();
+    }
+
+    private void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
+        // Google sign out
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        //signIn();
+                    }
+                });
+    }
+
+    private void revokeAccess() {
+        // Firebase sign out
+        mAuth.signOut();
+        // Google revoke access
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        signIn();
+                    }
+                });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+    }
 
     private void terminar() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
@@ -129,16 +250,61 @@ public class pregunta extends Activity {
             }
         });
 
-        Bundle bundle = getIntent().getExtras();
-        nombre=bundle.getString("nombre");
-        lista=bundle.getString("lista");
-
         newVL();
         pcbar.setProgress(vl.pcGlobal());
         ftxt1.setText(vl.fGlobal());
-        presenta("Hola, " + nombre + "!",
-                "Por ahora sabes " + vl.numsabidas() + " palabras.",
-                "Vale, empecemos");
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+        /*.addApi(Drive.API)
+          .addScope(Drive.SCOPE_APPFOLDER)
+        */
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    Log.d(TAG, "onAuthStateChanged()");
+                    hideProgressDialog();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (user != null) {
+                        Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                        nombre=user.getDisplayName();
+                            presenta("Hola, " + nombre + "!",
+                                    "Por ahora sabes " + vl.numsabidas() + " palabras.",
+                                    "Vale, empecemos");
+                    } else {
+                        Log.d(TAG, "onAuthStateChanged:signed_out");
+                    }
+                }
+        };
+
+        signIn();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart()");
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     @Override
@@ -168,12 +334,6 @@ public class pregunta extends Activity {
             // (previene doble pulsacion al final de la partida).
             if (! empezando) siguiente(v);
         }
-    }
-
-    public void volver() {
-        Intent i = new Intent(getBaseContext(), Glogin.class);
-        i.putExtra("nombreusu","");
-        startActivity(i);
     }
 
     public void siguiente(View v) {
@@ -209,4 +369,6 @@ public class pregunta extends Activity {
         entradaSI();
     }
 
+
 }
+
