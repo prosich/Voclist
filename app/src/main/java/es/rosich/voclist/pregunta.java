@@ -28,10 +28,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -264,8 +265,13 @@ public class pregunta extends BaseActivity implements
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
 
-        /*.addApi(Drive.API)
-          .addScope(Drive.SCOPE_APPFOLDER)
+        /*
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this )
+                .addApi(Drive.API)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addScope(Drive.SCOPE_APPFOLDER)
+                .build();
         */
 
         mAuth = FirebaseAuth.getInstance();
