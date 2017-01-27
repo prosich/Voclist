@@ -43,7 +43,7 @@ public class Voclist {
                     new ObjectInputStream(contxt.openFileInput(nombre+"-"+lista+".pun"));
             notas=(HashMap<String, Integer>) fichpuntos.readObject();
         } catch (IOException e) {
-            //BUG: Si se modifica corpus, es necesario borrar datos app. ie, perder puntos
+            //BUG: Si se añaden nuevas palabras a corpus, es necesario borrar datos app :-(
             notas = new HashMap<String, Integer>();
             Iterator it = todas.iterator();
             while(it.hasNext()) {
