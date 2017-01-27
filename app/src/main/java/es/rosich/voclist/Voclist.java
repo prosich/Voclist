@@ -33,7 +33,7 @@ public class Voclist {
                                     new InputStreamReader(contxt.getAssets().open(lista+".txt")));
         String str;
         while ((str = reader.readLine()) != null) {
-             todas.add(str);
+             todas.add(str.toLowerCase());
         }
         reader.close();
 
@@ -109,7 +109,7 @@ public class Voclist {
     public String califica(String palabra, String respuesta0) {
 
         Log.i("Truco",palabra);
-        String respuesta=trucoacento(respuesta0);
+        String respuesta=trucoacento(respuesta0).toLowerCase();
 
         int increm;
 
