@@ -42,6 +42,7 @@ public class Voclist {
             ObjectInputStream fichpuntos=
                     new ObjectInputStream(contxt.openFileInput(nombre+"-"+lista+".pun"));
             notas=(HashMap<String, Integer>) fichpuntos.readObject();
+            // Falta: limpiar aqui discrepancias notas<->corpus
         } catch (IOException e) {
             //BUG: Si se añaden nuevas palabras a corpus, es necesario borrar datos app :-(
             notas = new HashMap<String, Integer>();
