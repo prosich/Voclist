@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "460330201364",
+    "firebase_url": "https://apps-b3f79.firebaseio.com",
+    "project_id": "apps-b3f79",
+    "storage_bucket": "apps-b3f79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460330201364:android:96001f44ad4ae6ce",
+        "android_client_info": {
+          "package_name": "es.rosich.voclist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460330201364-0se4bps94purm7cntd6ic934en723snr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeeozpPUk1p-fCyR0GRB0x3KuIxY2KfEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460330201364-0se4bps94purm7cntd6ic934en723snr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
